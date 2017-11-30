@@ -19,6 +19,7 @@
   "homepage": "https://github.com/AFellman01/GreatBay#readme",
   "dependencies": {
     "enquirer": "^1.0.2",
+    "inquirer": "^4.0.1",
     "mysql": "^2.15.0"
   }
 }

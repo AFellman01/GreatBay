@@ -1,6 +1,5 @@
 var mysql = require("mysql");
-var enquirer = require("enquirer")
-
+var inquirer = require('inquirer');
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -10,24 +9,49 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "",
-  database: "bay_itemsDB"
+  database: "greatbayDB"
 });
 
-connection.connect(function(err) {
-      if (err) throw err;
-      console.log("Welcome to Great Bay! ");
-      readProducts1()
-    });
+// connection.connect(function(err) {
+//   if (err) throw err;
+//   console.log("connected as id " + connection.threadId);
+// });
 
-    function readProducts1() {
-      console.log("Selecting all products...\n");
-      connection.query("SELECT * FROM items", function(err, res) {
-        if (err) throw err;
-        // Log all results of the SELECT statement
-        console.log(res);
-        createProduct()
-      });
+inquirer
+  .prompt([
+    {
+    type: "rawlist",
+    name: "userAction",
+    message: "Do you want to post or bid?",
+    choices: ["Post", "Bid"]
     }
+ ])
+ .then(function(action) {
+   if (action.userAction === "Post") {
+     inquirer.prompt([
+      {
+       type: "input",
+       name: "items",
+       message: "What item do you want to sell?"
+       },
+       {
+       type: "input",
+       name: "price",
+       message: "What do you want the opening bid to be?"
+       },
+       {
+       type: "input",
+       name: "category",
+       message: "What category does this item belong in?"
+       }
+     ]);
+     // console.log("You want to sell your " +action.items+ " in the category of  " +action.category+ " for $" +action.price+ ".");
+   }
+   else if (action.userAction === "Bid") {
+     console.log("You want to bid");
+   }
+ });
+
 
 
     console.log("Would you like to post or bid?")
