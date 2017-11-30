@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+var enquirer = require("enquirer")
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -9,11 +10,13 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "",
-  database: "greatbayDB"
+  database: "bay_itemsDB"
 });
 
 connection.connect(function(err) {
   if (err) throw err;
-  console.log("connected as id " + connection.threadId + "\n");
-  createProduct();
+  console.log("Welcome to Great Bay " + connection.threadId + "\n");
+
 });
+
+console.log("Would you like to post?")
